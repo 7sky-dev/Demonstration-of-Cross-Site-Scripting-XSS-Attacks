@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <form class="flex flex-wrap gap-3" role="search">
+    <input class="input" type="search" name="q" value="<%= q %>" placeholder="Szukaj owoców, np. jabłko…" aria-label="Szukaj owoców" autofocus>
+    <button class="btn">Szukaj</button>
+  </form>
+
+  <% if (q) { %>
+    <p class="mt-6 text-sm text-slate-600 dark:text-slate-400">
+      Wyniki dla:
+      <%# show(): vuln=raw HTML (vulnerability), filter=strips <script>, safe=encodes characters %>
+      <strong class="text-slate-900 dark:text-slate-100"><%- show(q) %></strong>
+      · znaleziono <%= results.length %>
+    </p>
+  <% } %>
+
+  <% if (results.length) { %>
+    <ul class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <% for (const p of results) { %>
+        <li class="item flex flex-col items-center gap-1 py-5 text-center">
+          <span class="text-4xl" aria-hidden="true"><%= p.emoji %></span>
+          <span class="mt-1 font-semibold"><%= p.name %></span>
+          <span class="text-sm text-slate-500"><%= p.price %> / <%= p.unit %></span>
+        </li>
+      <% } %>
+    </ul>
+  <% } else { %>
+    <p class="item mt-4 text-center text-slate-500">Nie mamy takiego owocu. Spróbuj innej nazwy.</p>
+  <% } %>
+
+  <%- include('partials/defense') %>
+</section>
+
+<%- include('partials/footer') %>

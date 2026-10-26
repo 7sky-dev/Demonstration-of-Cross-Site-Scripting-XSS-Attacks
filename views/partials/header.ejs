@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= title %> · Laboratorium XSS</title>
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<%
+  const LABEL = { vuln: 'Tryb podatny', filter: 'Tryb z filtrem', safe: 'Tryb bezpieczny' }[mode];
+  const BADGE = { vuln: 'bg-rose-600', filter: 'bg-amber-600', safe: 'bg-emerald-600' }[mode];
+  const DOT = { vuln: 'bg-rose-500 ring-rose-500/20', filter: 'bg-amber-500 ring-amber-500/20', safe: 'bg-emerald-500 ring-emerald-500/20' }[mode];
+%>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100" data-mode="<%= mode %>">
+  <header class="sticky top-0 z-10 border-b border-slate-200 bg-white/80 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80">
+    <div class="mx-auto flex max-w-4xl items-center gap-3 px-4 py-3">
+      <a href="/" class="flex items-center gap-2.5 font-semibold tracking-tight">
+        <span class="size-2.5 rounded-full ring-4 <%= DOT %>"></span>
+        Laboratorium XSS
+      </a>
+      <span class="ml-auto rounded-full px-3 py-1 text-xs font-semibold text-white <%= BADGE %>">
+        <%= LABEL %>
+      </span>
+      <form method="post" action="/toggle">
+        <button class="cursor-pointer rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold transition hover:border-indigo-500 hover:text-indigo-600 dark:border-slate-700 dark:bg-slate-900 dark:hover:text-indigo-400">
+          Przełącz tryb
+        </button>
+      </form>
+    </div>
+    <nav class="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-4">
+      <% for (const [href, label] of [['/', 'Start'], ['/search', 'Reflected'], ['/guestbook', 'Stored'], ['/dom', 'DOM-based']]) { %>
+        <a href="<%= href %>" <%- path === href ? 'aria-current="page"' : '' %>
+           class="whitespace-nowrap border-b-2 px-3 py-2.5 text-sm font-medium transition <%= path === href ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-slate-200' %>">
+          <%= label %>
+        </a>
+      <% } %>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-4xl px-4 py-10">
+    <% if (locals.lead) { %>
+      <h1 class="text-3xl font-bold tracking-tight"><%= title %></h1>
+      <p class="mt-2 max-w-prose text-slate-600 dark:text-slate-400"><%= lead %></p>
+    <% } %>
+    <div class="mt-8 space-y-6">

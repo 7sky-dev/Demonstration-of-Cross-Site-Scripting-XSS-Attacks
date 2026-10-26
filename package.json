@@ -1,0 +1,29 @@
+{
+  "name": "demonstration-of-cross-site-scripting-xss-attacks",
+  "version": "1.0.0",
+  "description": "Mała, **celowo podatna** aplikacja szkoleniowa na zajęcia z bezpieczeństwa aplikacji webowych. Słucha tylko na `127.0.0.1`. Nie wystawiaj jej do sieci.",
+  "scripts": {
+    "test": "node test.js",
+    "build": "tailwindcss -i src/input.css -o public/css/app.css --minify",
+    "dev": "tailwindcss -i src/input.css -o public/css/app.css --watch",
+    "start": "npm run build && node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/7sky-dev/Demonstration-of-Cross-Site-Scripting-XSS-Attacks.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/7sky-dev/Demonstration-of-Cross-Site-Scripting-XSS-Attacks/issues"
+  },
+  "homepage": "https://github.com/7sky-dev/Demonstration-of-Cross-Site-Scripting-XSS-Attacks#readme",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.22.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  },
+  "private": "true"
+}

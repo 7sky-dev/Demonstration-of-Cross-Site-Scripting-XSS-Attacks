@@ -1,0 +1,15 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <p class="text-slate-600 dark:text-slate-400">
+    Dopisz tekst po <code>#</code> w adresie, np. <code>/dom#Ala</code>. Strona zaktualizuje się od razu.
+  </p>
+  <ul class="mt-6">
+    <li class="item">Witaj, <strong id="name"></strong>!</li>
+  </ul>
+
+  <%- include('partials/defense') %>
+</section>
+
+<script src="/js/dom.js" defer></script>
+<%- include('partials/footer') %>

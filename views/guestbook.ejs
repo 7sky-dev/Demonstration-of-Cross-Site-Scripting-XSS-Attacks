@@ -1,0 +1,23 @@
+<%- include('partials/header') %>
+
+<section class="card">
+  <form class="flex flex-wrap gap-3" method="post">
+    <input class="input" name="text" placeholder="Twój wpis…" aria-label="Treść wpisu" autofocus>
+    <button class="btn">Dodaj wpis</button>
+  </form>
+
+  <ul class="mt-6 space-y-2">
+    <% for (const c of comments) { %>
+      <%# show(): vuln=raw, filter=strips <script>, safe=encodes. Data from the server, not the URL %>
+      <li class="item"><%- show(c) %></li>
+    <% } %>
+  </ul>
+
+  <%- include('partials/defense') %>
+
+  <form class="mt-6" method="post" action="/guestbook/clear">
+    <button class="btn-ghost">Wyczyść wpisy</button>
+  </form>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,23 @@
+<% if (mode === 'safe') { %>
+  <div class="mt-6 flex gap-3 rounded-xl border border-emerald-500/40 bg-emerald-500/10 px-4 py-3 text-sm">
+    <span class="font-bold text-emerald-600 dark:text-emerald-400">✓</span>
+    <p><strong class="text-emerald-700 dark:text-emerald-400">Obrona aktywna.</strong>
+      Dane są kodowane przy wypisywaniu (szablon: <code>&lt;%= %&gt;</code>, DOM: <code>textContent</code>),
+      do tego nagłówek <code>Content-Security-Policy</code> i ciasteczko <code>HttpOnly</code>.</p>
+  </div>
+<% } else if (mode === 'filter') { %>
+  <div class="mt-6 flex gap-3 rounded-xl border border-amber-500/40 bg-amber-500/10 px-4 py-3 text-sm">
+    <span class="font-bold text-amber-600 dark:text-amber-400">⚠</span>
+    <p><strong class="text-amber-700 dark:text-amber-400">Naiwny filtr.</strong>
+      Kod wycina z danych <code>&lt;script&gt;</code> — ale to nie jest obrona. Omija go
+      <code>&lt;img src=x onerror=alert(1)&gt;</code> (nie ma słowa „script”), a także
+      <code>&lt;scr&lt;script&gt;ipt&gt;</code>, które po wycięciu składa się z powrotem w <code>&lt;script&gt;</code>.</p>
+  </div>
+<% } else { %>
+  <div class="mt-6 flex gap-3 rounded-xl border border-rose-500/40 bg-rose-500/10 px-4 py-3 text-sm">
+    <span class="font-bold text-rose-600 dark:text-rose-400">!</span>
+    <p><strong class="text-rose-700 dark:text-rose-400">Tryb podatny.</strong>
+      Wejście trafia do strony bez kodowania (szablon: <code>&lt;%- %&gt;</code>, DOM: <code>innerHTML</code>).
+      Przełącz tryb w nagłówku, by zobaczyć filtr i obronę.</p>
+  </div>
+<% } %>
